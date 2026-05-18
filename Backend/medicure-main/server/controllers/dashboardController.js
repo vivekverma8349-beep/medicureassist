@@ -21,13 +21,9 @@ const getDashboardSummary = async (req, res) => {
       user: userId
     })
 
-    const totalMedicines = await Medicine.countDocuments({
-      user: userId
-    })
+    const totalMedicines = await Medicine.countDocuments()
 
-    const totalTests = await Test.countDocuments({
-      user: userId
-    })
+    const totalTests = await Test.countDocuments()
 
     // Recent reports
 
