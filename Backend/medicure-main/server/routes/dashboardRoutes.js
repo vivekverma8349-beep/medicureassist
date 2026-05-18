@@ -4,8 +4,8 @@ import protect from '../middleware/authMiddleware.js'
 
 import {
   getDashboardSummary,
-  getUserProfile,
-  getBMI
+  getUserProfile
+ 
 } from '../controllers/dashboardController.js'
 
 const router = express.Router()
@@ -22,10 +22,7 @@ router.get(
   getUserProfile
 )
 
-router.post(
-  '/bmi',
-  protect,
-  getBMI
-)
+
+
 
 export default router

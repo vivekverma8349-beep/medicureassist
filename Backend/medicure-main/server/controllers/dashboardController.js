@@ -3,45 +3,7 @@ import MedicalReport from "../models/Report.js";
 import Disease from '../models/Disease.js'
 import Medicine from '../models/Medicine.js'
 import Test from '../models/Test.js'
-import calculateBMI from '../utils/calculateBMI.js'
 
-const getBMI = async (req, res) => {
-
-  try {
-
-    const { height, weight } = req.body
-
-    if (!height || !weight) {
-
-      return res.status(400).json({
-        success: false,
-        message: 'Height and weight are required'
-      })
-
-    }
-
-    const result = calculateBMI(
-      Number(height),
-      Number(weight)
-    )
-
-    res.status(200).json({
-      success: true,
-      bmiData: result
-    })
-
-  } catch (error) {
-
-    console.log(error)
-
-    res.status(500).json({
-      success: false,
-      message: error.message
-    })
-
-  }
-
-}
 
 const getDashboardSummary = async (req, res) => {
 
@@ -200,6 +162,6 @@ const getUserProfile = async (req, res) => {
 export {
   getDashboardSummary,
   getUserProfile,
-  getBMI
+  
 }
 

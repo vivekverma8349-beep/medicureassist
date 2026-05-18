@@ -6,7 +6,7 @@ import cors from 'cors'
 
 import analysis from './routes/analysis.js'
 import authRoutes from './routes/auth.js'
-//import medicalReportRoutes from './routes/reportRoutes.js'//
+import diseaseRoutes from './routes/diseaseRoutes.js'
 import chatRoutes from './routes/chatRoutes.js'
 import testRoutes from './routes/test.routes.js'
 import reportRoutes from './routes/reportRoutes.js'
@@ -25,7 +25,7 @@ app.use('/api/chat', chatRoutes)
 app.use('/api/dashboard', dashboardRoutes)
 app.use('/api/medicines', medicineRoutes)
 app.use('/api/tests', testRoutes)
-
+app.use('/api/diseases', diseaseRoutes)
 
 app.get('/', (req, res) => {
   res.send('MediCure API Running')
