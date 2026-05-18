@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import MainLayout from '../layouts/MainLayout'
 import { createChat, getChats, getSingleChat, sendMessage } from '../services/chatService'
 import Loader from '../components/Loader'
+import ReactMarkdown from 'react-markdown'
 
 const ChatbotPage = () => {
   const [chats, setChats] = useState([])
@@ -118,19 +119,103 @@ const ChatbotPage = () => {
                 {selectedChat.title || 'AI Health Assistant'}
               </div>
               <div style={{ flex: 1, overflowY: 'auto', padding: '20px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {selectedChat.messages?.map((msg, i) => (
-                  <div key={i} style={{ display: 'flex', justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start' }}>
-                    <div style={{
-                      maxWidth: '70%', padding: '12px 16px',
-                      borderRadius: msg.role === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
-                      background: msg.role === 'user' ? '#2563eb' : '#f1f5f9',
-                      color: msg.role === 'user' ? 'white' : '#1e293b',
-                      fontSize: '14px', lineHeight: '1.5'
-                    }}>
-                      {msg.content}
-                    </div>
-                  </div>
-                ))}
+                {selectedChat.messages?.map((msg, i) => {
+
+  const isUser = msg.role === 'user'
+
+  return (
+
+    <div
+      key={i}
+      style={{
+        display: 'flex',
+        justifyContent: isUser ? 'flex-end' : 'flex-start',
+        marginBottom: '8px'
+      }}
+    >
+
+      {!isUser && (
+        <div
+          style={{
+            width: '38px',
+            height: '38px',
+            borderRadius: '12px',
+            background: 'linear-gradient(135deg, #2563eb, #4f46e5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginRight: '10px',
+            flexShrink: 0,
+            boxShadow: '0 4px 12px rgba(37,99,235,0.25)'
+          }}
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            strokeWidth="2"
+          >
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+      )}
+
+      <div
+        style={{
+          maxWidth: isUser ? '70%' : '78%',
+          padding: isUser ? '12px 16px' : '16px 18px',
+          borderRadius: isUser
+            ? '18px 18px 4px 18px'
+            : '18px 18px 18px 4px',
+          background: isUser
+            ? 'linear-gradient(135deg,#2563eb,#1d4ed8)'
+            : 'white',
+          color: isUser ? 'white' : '#1e293b',
+          fontSize: '14px',
+          lineHeight: '1.8',
+          border: isUser ? 'none' : '1px solid #e2e8f0',
+          boxShadow: isUser
+            ? '0 6px 18px rgba(37,99,235,0.2)'
+            : '0 2px 10px rgba(15,23,42,0.04)',
+          whiteSpace: 'pre-wrap'
+        }}
+      >
+
+        {!isUser && (
+          <div
+            style={{
+              fontSize: '12px',
+              fontWeight: 700,
+              color: '#2563eb',
+              marginBottom: '10px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px'
+            }}
+          >
+            AI Health Assistant
+          </div>
+        )}
+
+        <div
+          style={{
+            wordBreak: 'break-word'
+          }}
+        >
+         <ReactMarkdown>
+  {msg.content}
+</ReactMarkdown>
+        </div>
+
+      </div>
+
+    </div>
+
+  )
+
+})}
                 {sending && (
                   <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                     <div style={{ padding: '12px 18px', borderRadius: '18px 18px 18px 4px', background: '#f1f5f9' }}>
